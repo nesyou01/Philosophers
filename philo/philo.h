@@ -7,11 +7,11 @@
 
 typedef struct s_vars
 {
-	int		number_of_philosopher;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	int		max_eat;
+	unsigned int	number_of_philosopher;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	int				max_eat;
 }	t_vars;
 
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);

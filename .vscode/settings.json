@@ -1,5 +1,10 @@
 {
 	"files.associations": {
-		"philo.h": "c"
+		"philo.h": "c",
+		"limits.h": "c",
+		"pthread.h": "c",
+		"__config": "c",
+		"availability.h": "c",
+		"cdefs.h": "c"
 	}
 }

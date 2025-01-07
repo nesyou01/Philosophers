@@ -5,7 +5,7 @@ int	ft_prase_vars(int argc, char **argv, t_vars *vars)
 	int	error;
 
 	error = 0;
-	vars->number_of_philosopher = ft_atoi(argv[1], &error);
+	vars->philos = ft_atoi(argv[1], &error);
 	vars->time_to_die = ft_atoi(argv[2], &error);
 	vars->time_to_eat = ft_atoi(argv[3], &error);
 	vars->time_to_sleep = ft_atoi(argv[4], &error);

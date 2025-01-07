@@ -1,5 +1,5 @@
 NAME = philo
-SRC = main.c parse.c ft_atoi.c
+SRC = main.c parse.c ft_atoi.c philo.c
 SRC_OBJS = ${SRC:.c=.o}
 CC = cc
 CFLAGS = 

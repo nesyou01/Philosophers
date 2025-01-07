@@ -6,6 +6,7 @@
 # include <limits.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 typedef struct s_vars
 {
@@ -14,6 +15,7 @@ typedef struct s_vars
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	int				max_eat;
+	size_t			started_at;
 }	t_vars;
 
 typedef struct s_philo
@@ -31,6 +33,6 @@ int		ft_philo(t_vars vars);
 void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
-
+time_t	ft_current_time();
 
 #endif

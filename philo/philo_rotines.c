@@ -2,7 +2,7 @@
 
 static void	ft_print(t_philo *philo, char *msg)
 {
-	printf("%d %s\n", philo->nbr, msg);
+	printf("%zd %d %s\n", ft_current_time() - philo->vars->started_at, philo->nbr, msg);
 }
 
 static void	ft_usleep(size_t ms)

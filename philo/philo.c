@@ -16,7 +16,7 @@ static void	init_forks(t_philo **philos, t_vars vars)
 	i = 0;
 	while (i < vars.philos)
 	{
-		pthread_mutex_init(&philos[0]->fork, NULL);
+		pthread_mutex_init(&philos[i]->fork, NULL);
 		if (i == vars.philos - 1)
 			philos[i]->r_fork = &philos[0]->fork;
 		else
@@ -73,6 +73,7 @@ int	ft_philo(t_vars vars)
 	if (!philos)
 		return (2);
 	i = 0;
+	vars.started_at = ft_current_time();
 	while (i < vars.philos)
 	{
 		philo = philos[i++];

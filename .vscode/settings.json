@@ -5,6 +5,7 @@
 		"pthread.h": "c",
 		"__config": "c",
 		"availability.h": "c",
-		"cdefs.h": "c"
+		"cdefs.h": "c",
+		"time.h": "c"
 	}
 }

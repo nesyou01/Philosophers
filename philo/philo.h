@@ -19,13 +19,18 @@ typedef struct s_vars
 typedef struct s_philo
 {
 	int				nbr;
+	pthread_t		id;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*r_fork;
-	pthread_t		id;
+	t_vars			*vars;
 }	t_philo;
 
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);
 size_t	ft_atoi(char *str, int *error);
 int		ft_philo(t_vars vars);
+void	ft_eat(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_think(t_philo *philo);
+
 
 #endif

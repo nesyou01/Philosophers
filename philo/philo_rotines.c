@@ -7,7 +7,11 @@ static void	ft_print(t_philo *philo, char *msg)
 
 static void	ft_usleep(size_t ms)
 {
-	usleep(ms * 1000);
+	time_t	time;
+
+	time = ft_current_time();
+	while (ft_current_time() - time < ms)
+		usleep(ms / 10);
 }
 
 void	ft_eat(t_philo *philo)

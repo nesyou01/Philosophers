@@ -6,3 +6,18 @@ time_t	ft_current_time()
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
+void	ft_print(t_philo *philo, char *msg)
+{
+	if (philo->vars->stop)
+		return ;
+	printf("%zd %d %s\n", ft_current_time() - philo->vars->started_at, philo->nbr, msg);
+}
+
+void	ft_usleep(size_t ms)
+{
+	time_t	time;
+
+	time = ft_current_time();
+	while (ft_current_time() - time < ms)
+		usleep(ms / 10);
+}

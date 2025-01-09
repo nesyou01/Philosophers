@@ -47,18 +47,31 @@ static t_philo	**ft_philos_init(t_vars vars)
 	return (result);
 }
 
+static int	should_stop(t_philo *philo)
+{
+	int	stop;
+
+	pthread_mutex_lock(&philo->vars->m_stop);
+	stop = philo->vars->stop;
+	pthread_mutex_unlock(&philo->vars->m_stop);
+	return (stop);
+}
+
 static void	*philo_rotine(void *attrs)
 {
-	t_philo *philo;
+	t_philo		*philo;
 
 	philo = (t_philo *) attrs;
 	if (philo->nbr % 2 == 0)
 		usleep(philo->vars->time_to_sleep / 5);
-	while (1)
+	while (!should_stop(philo))
 	{
 		ft_eat(philo);
-		ft_sleep(philo);
-		ft_think(philo);
+		if (!philo->vars->stop)
+		{
+			ft_sleep(philo);
+			ft_think(philo);
+		}
 	}
 	return (NULL);
 }
@@ -66,9 +79,9 @@ static void	*philo_rotine(void *attrs)
 int	ft_philo(t_vars vars)
 {
 	t_philo	**philos;
-	t_philo *philo;
 	int		i;
 
+	pthread_mutex_init(&vars.m_stop, NULL);
 	philos = ft_philos_init(vars);
 	if (!philos)
 		return (2);
@@ -76,12 +89,12 @@ int	ft_philo(t_vars vars)
 	vars.started_at = ft_current_time();
 	while (i < vars.philos)
 	{
-		philo = philos[i++];
-		philo->vars = &vars;
-		pthread_create(&philo->id, NULL, &philo_rotine, philo);
+		philos[i]->vars = &vars;
+		pthread_create(&philos[i]->id, NULL, &philo_rotine, philos[i]);
+		i++;
 	}
-	while (1)
-	{
-	}
+	i = 0;
+	while (i < vars.philos)
+		pthread_join(philos[i++]->id, NULL);
 	return (0);
 }

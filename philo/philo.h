@@ -11,11 +11,13 @@
 typedef struct s_vars
 {
 	unsigned int	philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
 	int				max_eat;
-	size_t			started_at;
+	int				stop;
+	time_t			started_at;
+	pthread_mutex_t	m_stop;
 }	t_vars;
 
 typedef struct s_philo
@@ -25,6 +27,7 @@ typedef struct s_philo
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*r_fork;
 	t_vars			*vars;
+	time_t			last_meal;
 }	t_philo;
 
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);
@@ -34,5 +37,7 @@ void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 time_t	ft_current_time();
+void	ft_usleep(size_t ms);
+void	ft_print(t_philo *philo, char *msg);
 
 #endif

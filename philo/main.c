@@ -6,5 +6,6 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6 || ft_prase_vars(argc, argv, &vars))
 		return (1);
+	vars.stop = 0;
 	return (ft_philo(vars));
 }

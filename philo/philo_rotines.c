@@ -7,7 +7,7 @@ static void	*death_rotine(void *attrs)
 	philo = (t_philo *) attrs;
 	ft_usleep(philo->vars->time_to_die, philo);
 	pthread_mutex_lock(&philo->vars->m_stop);
-	if (ft_current_time() - philo->last_meal >= philo->vars->time_to_die && !philo->vars->stop)
+	if (!philo->vars->stop && ft_current_time() - philo->last_meal > philo->vars->time_to_die)
 	{
 		ft_print(philo, "died");
 		philo->vars->stop = 1;
@@ -29,7 +29,6 @@ void	ft_eat(t_philo *philo)
 	philo->last_meal = ft_current_time();
 	pthread_mutex_unlock(&philo->vars->m_stop);
 	pthread_create(&death_id, NULL, &death_rotine, philo);
-	// pthread_detach(death_id);
 	ft_usleep(philo->vars->time_to_eat, philo);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(&philo->fork);

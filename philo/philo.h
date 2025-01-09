@@ -18,6 +18,7 @@ typedef struct s_vars
 	int				stop;
 	time_t			started_at;
 	pthread_mutex_t	m_stop;
+	pthread_mutex_t	m_print;
 }	t_vars;
 
 typedef struct s_philo
@@ -39,5 +40,6 @@ void	ft_think(t_philo *philo);
 time_t	ft_current_time();
 void	ft_usleep(size_t ms, t_philo *philo);
 void	ft_print(t_philo *philo, char *msg);
+int		ft_should_stop(t_philo *philo);
 
 #endif

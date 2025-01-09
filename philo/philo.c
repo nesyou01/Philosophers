@@ -47,7 +47,7 @@ static t_philo	**ft_philos_init(t_vars vars)
 	return (result);
 }
 
-static int	should_stop(t_philo *philo)
+int	ft_should_stop(t_philo *philo)
 {
 	int	stop;
 
@@ -64,7 +64,7 @@ static void	*philo_rotine(void *attrs)
 	philo = (t_philo *) attrs;
 	if (philo->nbr % 2 == 0)
 		usleep(philo->vars->time_to_sleep / 5);
-	while (!should_stop(philo))
+	while (!ft_should_stop(philo))
 	{
 		ft_eat(philo);
 		if (!philo->vars->stop)
@@ -82,6 +82,7 @@ int	ft_philo(t_vars vars)
 	int		i;
 
 	pthread_mutex_init(&vars.m_stop, NULL);
+	pthread_mutex_init(&vars.m_print, NULL);
 	philos = ft_philos_init(vars);
 	if (!philos)
 		return (2);

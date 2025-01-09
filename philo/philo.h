@@ -41,6 +41,7 @@ void	ft_think(t_philo *philo);
 time_t	ft_current_time();
 void	ft_usleep(size_t ms, t_philo *philo);
 void	ft_print(t_philo *philo, char *msg);
-int		ft_should_stop(t_philo *philo);
+void	free_until(t_philo **philos, int until);
+t_philo	**ft_philos_init(t_vars vars);
 
 #endif

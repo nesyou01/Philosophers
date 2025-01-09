@@ -23,3 +23,13 @@ void	ft_usleep(size_t ms, t_philo *philo)
 	while (ft_current_time() - time < ms && !philo->vars->stop)
 		usleep(ms / 10);
 }
+
+void	free_until(t_philo **philos, int until)
+{
+	int		i;
+
+	i = 0;
+	while (i < until)
+		free(philos[i++]);
+	free(philos);
+}

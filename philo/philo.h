@@ -37,7 +37,7 @@ void	ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 time_t	ft_current_time();
-void	ft_usleep(size_t ms);
+void	ft_usleep(size_t ms, t_philo *philo);
 void	ft_print(t_philo *philo, char *msg);
 
 #endif

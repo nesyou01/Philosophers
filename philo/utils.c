@@ -13,11 +13,11 @@ void	ft_print(t_philo *philo, char *msg)
 	printf("%zd %d %s\n", ft_current_time() - philo->vars->started_at, philo->nbr, msg);
 }
 
-void	ft_usleep(size_t ms)
+void	ft_usleep(size_t ms, t_philo *philo)
 {
 	time_t	time;
 
 	time = ft_current_time();
-	while (ft_current_time() - time < ms)
+	while (ft_current_time() - time < ms && !philo->vars->stop)
 		usleep(ms / 10);
 }

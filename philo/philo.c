@@ -40,6 +40,7 @@ static t_philo	**ft_philos_init(t_vars vars)
 		philo = (t_philo *) malloc(sizeof(t_philo));
 		if (!philo)
 			return (free_until(result, i), NULL);
+		philo->eat_times = 0;
 		philo->nbr = i + 1;
 		result[i++] = philo;
 	}
@@ -72,6 +73,8 @@ static void	*philo_rotine(void *attrs)
 			ft_sleep(philo);
 			ft_think(philo);
 		}
+		if (philo->eat_times != -1 && philo->eat_times >= philo->vars->max_eat)
+			break ;
 	}
 	return (NULL);
 }

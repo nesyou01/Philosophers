@@ -25,6 +25,7 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->fork);
 	ft_print(philo, "has taken a fork");
 	ft_print(philo, "is eating");
+	philo->eat_times++;
 	pthread_mutex_lock(&philo->vars->m_stop);
 	philo->last_meal = ft_current_time();
 	pthread_mutex_unlock(&philo->vars->m_stop);

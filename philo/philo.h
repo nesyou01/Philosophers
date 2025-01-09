@@ -29,6 +29,7 @@ typedef struct s_philo
 	pthread_mutex_t	*r_fork;
 	t_vars			*vars;
 	time_t			last_meal;
+	size_t			eat_times;
 }	t_philo;
 
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);

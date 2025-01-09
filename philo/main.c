@@ -6,6 +6,11 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6 || ft_prase_vars(argc, argv, &vars))
 		return (1);
+	if (pthread_mutex_init(&vars.m_stop, NULL) != 0)
+		return (3);
+	if (pthread_mutex_init(&vars.m_print, NULL) != 0)
+		return (3);
 	vars.stop = 0;
+	vars.started_at = ft_current_time();
 	return (ft_philo(vars));
 }

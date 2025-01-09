@@ -36,22 +36,23 @@ int	ft_philo(t_vars vars)
 	t_philo	**philos;
 	int		i;
 
-	pthread_mutex_init(&vars.m_stop, NULL);
-	pthread_mutex_init(&vars.m_print, NULL);
 	philos = ft_philos_init(vars);
 	if (!philos)
 		return (2);
 	i = 0;
-	vars.started_at = ft_current_time();
 	while (i < vars.philos)
 	{
 		philos[i]->vars = &vars;
-		pthread_create(&philos[i]->id, NULL, &philo_rotine, philos[i]);
+		if (pthread_create(&philos[i]->id, NULL, &philo_rotine, philos[i]) != 0)
+			return (free_until(philos, vars.philos), 4);
 		i++;
 	}
 	i = 0;
 	while (i < vars.philos)
-		pthread_join(philos[i++]->id, NULL);
+	{
+		if (pthread_join(philos[i++]->id, NULL) != 0)
+			return (free_until(philos, vars.philos), 5);
+	}
 	free_until(philos, vars.philos);
 	return (0);
 }

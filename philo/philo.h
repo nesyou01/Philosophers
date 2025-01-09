@@ -35,7 +35,7 @@ typedef struct s_philo
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);
 size_t	ft_atoi(char *str, int *error);
 int		ft_philo(t_vars vars);
-void	ft_eat(t_philo *philo);
+int		ft_eat(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_think(t_philo *philo);
 time_t	ft_current_time();

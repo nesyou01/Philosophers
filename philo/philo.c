@@ -16,10 +16,11 @@ static void	*philo_rotine(void *attrs)
 
 	philo = (t_philo *) attrs;
 	if (philo->nbr % 2 == 0)
-		usleep(philo->vars->time_to_sleep / 5);
+		ft_usleep(philo->vars->time_to_sleep / 5, philo);
 	while (!ft_should_stop(philo))
 	{
-		ft_eat(philo);
+		if (ft_eat(philo))
+			break ;
 		if (!philo->vars->stop)
 		{
 			ft_sleep(philo);

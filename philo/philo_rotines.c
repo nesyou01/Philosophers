@@ -6,7 +6,8 @@ static void	*death_rotine(void *attrs)
 
 	philo = (t_philo *) attrs;
 	ft_usleep(philo->vars->time_to_die, philo);
-	pthread_mutex_lock(&philo->vars->m_stop);
+	if (pthread_mutex_lock(&philo->vars->m_stop) != 0)
+		return (NULL);
 	if (!philo->vars->stop && ft_current_time() - philo->last_meal > philo->vars->time_to_die)
 	{
 		ft_print(philo, "died");
@@ -16,23 +17,31 @@ static void	*death_rotine(void *attrs)
 	return (NULL);
 }
 
-void	ft_eat(t_philo *philo)
+int	ft_eat(t_philo *philo)
 {
 	pthread_t	death_id;
 
-	pthread_mutex_lock(philo->r_fork);
+	if (pthread_mutex_lock(philo->r_fork) != 0)
+		return (1);
 	ft_print(philo, "has taken a fork");
-	pthread_mutex_lock(&philo->fork);
+	if (pthread_mutex_lock(&philo->fork) != 0)
+		return (1);
 	ft_print(philo, "has taken a fork");
 	ft_print(philo, "is eating");
 	philo->eat_times++;
-	pthread_mutex_lock(&philo->vars->m_stop);
+	if (pthread_mutex_lock(&philo->vars->m_stop) != 0)
+		return (1);
 	philo->last_meal = ft_current_time();
-	pthread_mutex_unlock(&philo->vars->m_stop);
-	pthread_create(&death_id, NULL, &death_rotine, philo);
+	if (pthread_mutex_unlock(&philo->vars->m_stop) != 0)
+		return (1);
+	if (pthread_create(&death_id, NULL, &death_rotine, philo) != 0)
+		return (1);
 	ft_usleep(philo->vars->time_to_eat, philo);
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(&philo->fork);
+	if (pthread_mutex_unlock(philo->r_fork) != 0)
+		return (1);
+	if (pthread_mutex_unlock(&philo->fork) != 0)
+		return (1);
+	return (0);
 }
 
 void	ft_sleep(t_philo *philo)

@@ -1,19 +1,21 @@
 #include "philo.h"
 
-static void	init_forks(t_philo **philos, t_vars vars)
+static int	init_forks(t_philo **philos, t_vars vars)
 {
 	int		i;
 
 	i = 0;
 	while (i < vars.philos)
 	{
-		pthread_mutex_init(&philos[i]->fork, NULL);
+		if (pthread_mutex_init(&philos[i]->fork, NULL) != 0)
+			return (1);
 		if (i == vars.philos - 1)
 			philos[i]->r_fork = &philos[0]->fork;
 		else
 			philos[i]->r_fork = &philos[i + 1]->fork;
 		i++;
 	}
+	return (0);
 }
 
 t_philo	**ft_philos_init(t_vars vars)
@@ -35,6 +37,7 @@ t_philo	**ft_philos_init(t_vars vars)
 		philo->nbr = i + 1;
 		result[i++] = philo;
 	}
-	init_forks(result, vars);
+	if (init_forks(result, vars))
+		return (free_until(result, vars.philos), NULL);
 	return (result);
 }

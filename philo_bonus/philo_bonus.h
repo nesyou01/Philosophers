@@ -18,6 +18,7 @@ typedef struct s_vars
 	int				stop;
 	time_t			started_at;
 	sem_t			*forks_sem;
+	sem_t			*print_sem;
 }	t_vars;
 
 typedef struct s_philo
@@ -31,7 +32,7 @@ typedef struct s_philo
 t_philo	**ft_philos_init(t_vars vars);
 size_t	ft_atoi(char *str, int *error);
 void	free_until(t_philo **philos, int until, t_vars *vars);
-void	ft_usleep(size_t ms, t_philo *philo);
+void	ft_usleep(size_t ms, t_philo *philo, t_vars vars);
 time_t	ft_current_time();
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);
 int		ft_philo(t_vars vars);

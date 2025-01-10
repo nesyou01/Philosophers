@@ -9,19 +9,20 @@ time_t	ft_current_time()
 
 void	ft_print(t_philo *philo, t_vars vars, char *msg)
 {
-	// if (philo->vars->stop)
-	// 	return ;
+	if (vars.stop)
+		return ;
+	if (sem_wait(vars.print_sem) != 0)
+		return ;
 	printf("%zd %d %s\n", ft_current_time() - vars.started_at, philo->nbr, msg);
+	sem_post(vars.print_sem);
 }
 
-void	ft_usleep(size_t ms, t_philo *philo)
+void	ft_usleep(size_t ms, t_philo *philo, t_vars vars)
 {
 	time_t	time;
 
 	time = ft_current_time();
-	while (ft_current_time() - time < ms
-	//  && !philo->vars->stop
-	)
+	while (ft_current_time() - time < ms  && !vars.stop)
 		usleep(ms / 10);
 }
 

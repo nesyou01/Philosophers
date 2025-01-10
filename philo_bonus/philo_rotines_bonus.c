@@ -28,7 +28,7 @@ int	ft_eat(t_philo *philo, t_vars vars)
 	ft_print(philo, vars, "is eating");
 	philo->eat_times++;
 	philo->last_meal = ft_current_time();
-	ft_usleep(vars.time_to_eat, philo);
+	ft_usleep(vars.time_to_eat, philo, vars);
 	if (sem_post(vars.forks_sem) != 0)
 		return (1);
 	if (sem_post(vars.forks_sem) != 0)
@@ -39,7 +39,7 @@ int	ft_eat(t_philo *philo, t_vars vars)
 void	ft_sleep(t_philo *philo, t_vars vars)
 {
 	ft_print(philo, vars, "is sleeping");
-	ft_usleep(vars.time_to_sleep, philo);
+	ft_usleep(vars.time_to_sleep, philo, vars);
 }
 
 void	ft_think(t_philo *philo, t_vars vars)

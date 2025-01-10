@@ -3,7 +3,7 @@
 static void	philo_rotine(t_philo *philo, t_vars vars)
 {
 	if (philo->nbr % 2 == 0)
-		ft_usleep(vars.time_to_sleep / 5, philo);
+		ft_usleep(vars.time_to_sleep / 5, philo, vars);
 	while (1)
 	{
 		if (ft_eat(philo, vars))
@@ -43,6 +43,7 @@ static int	init_processes(t_philo **philos, t_vars vars)
 static void	unlink_sems()
 {
 	sem_unlink("/forks");
+	sem_unlink("/print");
 }
 
 int	ft_philo(t_vars vars)
@@ -55,6 +56,7 @@ int	ft_philo(t_vars vars)
 		return (free_until(NULL, 0, &vars), 2);
 	unlink_sems();
 	vars.forks_sem = sem_open("/forks", O_CREAT, 0664, vars.philos);
+	vars.print_sem = sem_open("/print", O_CREAT, 0664, 1);
 	if (vars.forks_sem == SEM_FAILED)
 		code = 5;
 	else

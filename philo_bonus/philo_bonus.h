@@ -5,6 +5,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <semaphore.h>
 # include <sys/time.h>
 
 typedef struct s_vars
@@ -24,6 +25,7 @@ typedef struct s_philo
 	t_vars			*vars;
 	time_t			last_meal;
 	size_t			eat_times;
+	pid_t			id;
 }	t_philo;
 
 t_philo	**ft_philos_init(t_vars vars);

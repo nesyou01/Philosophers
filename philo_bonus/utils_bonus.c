@@ -6,11 +6,12 @@ time_t	ft_current_time()
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
-void	ft_print(t_philo *philo, char *msg)
+
+void	ft_print(t_philo *philo, t_vars vars, char *msg)
 {
-	if (philo->vars->stop)
-		return ;
-	printf("%zd %d %s\n", ft_current_time() - philo->vars->started_at, philo->nbr, msg);
+	// if (philo->vars->stop)
+	// 	return ;
+	printf("%zd %d %s\n", ft_current_time() - vars.started_at, philo->nbr, msg);
 }
 
 void	ft_usleep(size_t ms, t_philo *philo)
@@ -18,7 +19,9 @@ void	ft_usleep(size_t ms, t_philo *philo)
 	time_t	time;
 
 	time = ft_current_time();
-	while (ft_current_time() - time < ms && !philo->vars->stop)
+	while (ft_current_time() - time < ms
+	//  && !philo->vars->stop
+	)
 		usleep(ms / 10);
 }
 

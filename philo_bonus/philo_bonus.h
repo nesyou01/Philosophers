@@ -17,12 +17,12 @@ typedef struct s_vars
 	int				max_eat;
 	int				stop;
 	time_t			started_at;
+	sem_t			*forks_sem;
 }	t_vars;
 
 typedef struct s_philo
 {
 	int				nbr;
-	t_vars			*vars;
 	time_t			last_meal;
 	size_t			eat_times;
 	pid_t			id;
@@ -35,5 +35,9 @@ void	ft_usleep(size_t ms, t_philo *philo);
 time_t	ft_current_time();
 int		ft_prase_vars(int argc, char **argv, t_vars *vars);
 int		ft_philo(t_vars vars);
+void	ft_print(t_philo *philo, t_vars vars, char *msg);
+int		ft_eat(t_philo *philo, t_vars vars);
+void	ft_sleep(t_philo *philo, t_vars vars);
+void	ft_think(t_philo *philo, t_vars vars);
 
 #endif

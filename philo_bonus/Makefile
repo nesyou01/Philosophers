@@ -1,5 +1,5 @@
 NAME = philo_bonus
-SRC = main_bonus.c ft_atoi_bonus.c init_bonus.c utils_bonus.c philo_bonus.c
+SRC = main_bonus.c ft_atoi_bonus.c init_bonus.c utils_bonus.c philo_bonus.c philo_rotines_bonus.c
 SRC_OBJS = ${SRC:.c=.o}
 CC = cc
 CFLAGS = 

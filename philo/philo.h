@@ -43,5 +43,6 @@ void	ft_usleep(size_t ms, t_philo *philo);
 void	ft_print(t_philo *philo, char *msg);
 void	free_until(t_philo **philos, int until);
 t_philo	**ft_philos_init(t_vars vars);
+void	*death_rotine(void *attrs);
 
 #endif

@@ -1,6 +1,6 @@
 #include "philo.h"
 
-static void	*death_rotine(void *attrs)
+void	*death_rotine(void *attrs)
 {
 	t_philo		*philo;
 
@@ -8,7 +8,7 @@ static void	*death_rotine(void *attrs)
 	ft_usleep(philo->vars->time_to_die, philo);
 	if (pthread_mutex_lock(&philo->vars->m_stop) != 0)
 		return (NULL);
-	if (!philo->vars->stop && ft_current_time() - philo->last_meal > philo->vars->time_to_die)
+	if (!philo->vars->stop && ft_current_time() - philo->last_meal >= philo->vars->time_to_die)
 	{
 		ft_print(philo, "died");
 		philo->vars->stop = 1;
@@ -19,8 +19,6 @@ static void	*death_rotine(void *attrs)
 
 int	ft_eat(t_philo *philo)
 {
-	pthread_t	death_id;
-
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 		return (1);
 	ft_print(philo, "has taken a fork");
@@ -33,8 +31,6 @@ int	ft_eat(t_philo *philo)
 		return (1);
 	philo->last_meal = ft_current_time();
 	if (pthread_mutex_unlock(&philo->vars->m_stop) != 0)
-		return (1);
-	if (pthread_create(&death_id, NULL, &death_rotine, philo) != 0)
 		return (1);
 	ft_usleep(philo->vars->time_to_eat, philo);
 	if (pthread_mutex_unlock(philo->r_fork) != 0)

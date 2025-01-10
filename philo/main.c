@@ -11,6 +11,5 @@ int	main(int argc, char **argv)
 	if (pthread_mutex_init(&vars.m_print, NULL) != 0)
 		return (3);
 	vars.stop = 0;
-	vars.started_at = ft_current_time();
 	return (ft_philo(vars));
 }

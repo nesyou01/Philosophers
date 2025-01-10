@@ -13,19 +13,20 @@ static int	ft_should_stop(t_philo *philo)
 static void	*philo_rotine(void *attrs)
 {
 	t_philo		*philo;
+	pthread_t	death_id;
 
 	philo = (t_philo *) attrs;
 	if (philo->nbr % 2 == 0)
 		ft_usleep(philo->vars->time_to_sleep / 5, philo);
 	while (!ft_should_stop(philo))
 	{
+		if (pthread_create(&death_id, NULL, &death_rotine, philo) != 0)
+			return (NULL);
+		pthread_detach(death_id);
 		if (ft_eat(philo))
 			break ;
-		if (!philo->vars->stop)
-		{
-			ft_sleep(philo);
-			ft_think(philo);
-		}
+		ft_sleep(philo);
+		ft_think(philo);
 		if (philo->eat_times != -1 && philo->eat_times >= philo->vars->max_eat)
 			break ;
 	}
@@ -41,6 +42,7 @@ int	ft_philo(t_vars vars)
 	if (!philos)
 		return (2);
 	i = 0;
+	vars.started_at = ft_current_time();
 	while (i < vars.philos)
 	{
 		philos[i]->vars = &vars;

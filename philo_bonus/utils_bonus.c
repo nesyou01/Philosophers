@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "philo_bonus.h"
 
 time_t	ft_current_time()
 {
@@ -10,9 +10,7 @@ void	ft_print(t_philo *philo, char *msg)
 {
 	if (philo->vars->stop)
 		return ;
-	pthread_mutex_lock(&philo->vars->m_print);
 	printf("%zd %d %s\n", ft_current_time() - philo->vars->started_at, philo->nbr, msg);
-	pthread_mutex_unlock(&philo->vars->m_print);
 }
 
 void	ft_usleep(size_t ms, t_philo *philo)
@@ -29,14 +27,9 @@ void	free_until(t_philo **philos, int until, t_vars *vars)
 	int		i;
 
 	i = 0;
-	pthread_mutex_destroy(&vars->m_print);
-	pthread_mutex_destroy(&vars->m_stop);
 	if (!philos)
 		return ;
 	while (i < until)
-	{
-		pthread_mutex_destroy(&philos[i]->fork);
 		free(philos[i++]);
-	}
 	free(philos);
 }

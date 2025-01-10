@@ -6,6 +6,8 @@
 		"__config": "c",
 		"availability.h": "c",
 		"cdefs.h": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"philo_bonus.h": "c",
+		"unistd.h": "c"
 	}
 }

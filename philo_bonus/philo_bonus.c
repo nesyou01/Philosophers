@@ -7,20 +7,19 @@ static void	philo_rotine(t_philo *philo)
 	exit(0);
 }
 
-int	ft_philo(t_vars vars)
+static int	init_processes(t_philo **philos, t_vars vars)
 {
-	t_philo	**philos;
 	int		i;
     pid_t	pid;
 
-	philos = ft_philos_init(vars);
-	if (!philos)
-		return (free_until(NULL, 0, &vars), 2);
 	i = 0;
 	while (i < vars.philos)
 	{
 		pid = fork();
-		if (pid == 0)
+
+		if (pid < 0)
+			return (1);
+		else if (pid == 0)
 			philo_rotine(philos[i]);
 		else
 			philos[i]->id = pid;
@@ -30,4 +29,16 @@ int	ft_philo(t_vars vars)
 	while (i < vars.philos)
 		waitpid(philos[i++]->id, NULL, 0);
 	return (0);
+}
+
+int	ft_philo(t_vars vars)
+{
+	t_philo	**philos;
+	int		code;
+
+	philos = ft_philos_init(vars);
+	if (!philos)
+		return (free_until(NULL, 0, &vars), 2);
+	code = init_processes(philos, vars);
+	return (free_until(NULL, 0, &vars), code);
 }

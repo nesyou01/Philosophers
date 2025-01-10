@@ -40,22 +40,22 @@ int	ft_philo(t_vars vars)
 
 	philos = ft_philos_init(vars);
 	if (!philos)
-		return (2);
+		return (free_until(NULL, 0, &vars), 2);
 	i = 0;
 	vars.started_at = ft_current_time();
 	while (i < vars.philos)
 	{
 		philos[i]->vars = &vars;
 		if (pthread_create(&philos[i]->id, NULL, &philo_rotine, philos[i]) != 0)
-			return (free_until(philos, vars.philos), 4);
+			return (free_until(philos, vars.philos, &vars), 4);
 		i++;
 	}
 	i = 0;
 	while (i < vars.philos)
 	{
 		if (pthread_join(philos[i++]->id, NULL) != 0)
-			return (free_until(philos, vars.philos), 5);
+			return (free_until(philos, vars.philos, &vars), 5);
 	}
-	free_until(philos, vars.philos);
+	free_until(philos, vars.philos, &vars);
 	return (0);
 }

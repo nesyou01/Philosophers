@@ -32,12 +32,12 @@ t_philo	**ft_philos_init(t_vars vars)
 	{
 		philo = (t_philo *) malloc(sizeof(t_philo));
 		if (!philo)
-			return (free_until(result, i), NULL);
+			return (free_until(result, i, &vars), NULL);
 		philo->eat_times = 0;
 		philo->nbr = i + 1;
 		result[i++] = philo;
 	}
 	if (init_forks(result, vars))
-		return (free_until(result, vars.philos), NULL);
+		return (free_until(result, vars.philos, &vars), NULL);
 	return (result);
 }

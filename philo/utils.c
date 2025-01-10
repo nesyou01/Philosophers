@@ -24,12 +24,19 @@ void	ft_usleep(size_t ms, t_philo *philo)
 		usleep(ms / 10);
 }
 
-void	free_until(t_philo **philos, int until)
+void	free_until(t_philo **philos, int until, t_vars *vars)
 {
 	int		i;
 
 	i = 0;
+	pthread_mutex_destroy(&vars->m_print);
+	pthread_mutex_destroy(&vars->m_stop);
+	if (!philos)
+		return (NULL);
 	while (i < until)
+	{
+		pthread_mutex_destroy(&philos[i]->fork);
 		free(philos[i++]);
+	}
 	free(philos);
 }
